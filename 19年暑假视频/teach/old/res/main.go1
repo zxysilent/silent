@@ -1,0 +1,37 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+//Point 一个点
+type Point struct {
+	X int
+	Y int
+}
+
+//Circle 圆
+type Circle struct {
+	Point      //圆心//嵌套结构体匿名成员
+	Radius int `json:"半径"` //半径
+}
+
+func main() {
+	// c := Circle{
+	// 	Point:  Point{100, 1000},
+	// 	Radius: 10,
+	// }
+	// // c1 := Circle{Point{0, 0}, 10}
+
+	// log.Println(c.X, c.Point.Y)
+	// b, e := json.Marshal(c)// 序列化 把go里面数据 变成 json 字符串
+	// if e != nil {
+	// 	//
+	// }
+	// log.Println(string(b))
+	s := `{"X":1,"Y":2,"半径":10}`
+	c := Circle{}
+	json.Unmarshal([]byte(s), &c) // 把 json 格式的字符串 变成 go 变量
+	fmt.Println(c)                //{{1 2} 10}
+}

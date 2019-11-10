@@ -1,0 +1,50 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+func fn1() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("暂停 1 s")
+	wg.Done()
+	//wg.Add(-1)
+}
+func fn2() {
+	time.Sleep(2 * time.Second)
+	fmt.Println("暂停 2 s")
+	wg.Done()
+}
+
+// 同步 async 异步
+// wait Group
+var wg sync.WaitGroup
+
+// 入口 协程启动的
+// 主/父协程  子协程
+func main() {
+
+	// wg.Add() wg.Add(1)
+	// wg.Done() // wg.Add(-1)
+	// wg.Wait()
+	//开始时间
+	begin := time.Now()      //获取当前的时间
+	for i := 0; i < 5; i++ { //0 1 2 3 4
+		go fn1() //启动一个新协程 轻量级的线程
+		wg.Add(1)
+		go fn2()
+		wg.Add(1)
+	}
+	wg.Wait()
+	//获取运行结束时间
+	end := time.Now()
+	//输出时间差
+	fmt.Println("总共用时:", end.Sub(begin)) //总共用时: 15.0871782s
+}
+
+// time.String()
+// 自定义的格式化
+// type Myint int
+// String() //Print

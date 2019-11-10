@@ -1,0 +1,75 @@
+package main
+
+import (
+	"fmt"
+	"log"
+)
+
+// 定义一个 接口 inaterface
+// type Animal interface{}//能存放任意数据类型
+
+// 🐱
+type Cat struct {
+	Name string
+}
+
+// 方法  在函数前面给定一个接收者 就把这个函数绑定到这个接收者类型的变量上
+func (c Cat) Say() {
+	fmt.Println("I’m cat. ==>", c.Name)
+}
+
+// 🐕
+type Dog struct {
+	Name string
+}
+
+func (d Dog) Run() {
+	fmt.Println("I’m dog.==>", d.Name)
+}
+
+func main() {
+	var a interface{} // Say
+
+	// Say
+	var c Cat = Cat{
+		Name: "猫猫",
+	}
+	a = c
+	// 断言 判断interface {} 的具体数据类型
+	// 1 -成功之后的具体的数据类型的变量
+	// 2 判断是否推测成功
+	// cc, ok := a.(Dog)
+	// log.Println(cc, ok)
+	// if cc, ok := a.(Cat); ok {
+	// 	cc.Say()
+	// }
+	// c1 := a.(Dog)
+	// c1.Run()
+
+	// a.Say()
+	// fmt.Printf("%T\n", a)
+	d := Dog{Name: "狗狗"}
+	a = d
+	a = c
+	// a.Say()
+	// fmt.Printf("%T\n", a)
+	// a = ""
+	// fmt.Printf("%T\n", a)
+	// a = 100
+	// fmt.Printf("%T\n", a)
+	// a = 100.1
+	// fmt.Printf("%T\n", a)
+	// a = true
+	// fmt.Printf("%T\n", a)
+
+	switch v := a.(type) {
+	case int:
+		log.Println("int==>", v)
+	case Cat:
+		v.Say()
+	case Dog:
+		v.Run()
+	default:
+		log.Println(v)
+	}
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>List</title>
+        <style>
+            ul {
+                list-style: none;
+            }
+            ul li {
+                display: table;
+                cursor: pointer;
+                height: 28px;
+                border-bottom: 1px solid #fff;
+            }
+            ul li:hover {
+                border-bottom: 1px solid #0099FF;
+            }
+            ul li button {
+                border: none;
+                color: #fff;
+                background-color: coral;
+                margin-left: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="ctn">
+            <li><b>标题</b><span>[标题]</span> <b>作者</b><span>[作者]</span><button onclick="del(id)">删除</button></li>
+            <img src="" alt="" />
+        </ul>
+        <script src="/static/jquery.min.js"></script>
+        <script>
+            function init() {
+                $.get(
+                    "/api/list/data",
+                    {},
+                    function(resp) {
+                        console.log(resp);
+                        var html = [];
+                        // $.each(resp,function(k,v){
+
+                        // })
+                        for (var i = 0; i < resp.length; i++) {
+                            html.push(
+                                "<li>" +
+                                    resp[i].id +
+                                    "===> <b>标题</b><span>[" +
+                                    resp[i].title +
+                                    "]</span> <b>作者</b><span>[" +
+                                    resp[i].author +
+                                    ']</span><button onclick="del(' +
+                                    resp[i].id +
+                                    ')">删除</button></li>'
+                            );
+                        }
+                        $("#ctn").html(html.join(""));
+                    },
+                    "json"
+                );
+            }
+            // 删除
+            function del(id) {
+                $.get("/api/list/del", { id: id }, function(resp) {
+                    alert(resp);
+                    if (resp == "删除成功") {
+                        init();
+                    }
+                });
+            }
+            init();
+        </script>
+    </body>
+</html>

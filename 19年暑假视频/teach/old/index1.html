@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- <img src="/dddd" alt=""> http -->
+        <input type="text" id="ipt" />
+        <button onclick="search()">查询</button>
+        <div>
+            <h3 id="id"></h3>
+            <h4 id="name"></h4>
+        </div>
+        <script>
+            // 点击查询的时候 执行的函数
+            function search() {
+                console.log("search click");
+                // 获取id ipt 的 输入框的值
+                var ipt = document.getElementById("ipt").value;
+                console.log(ipt);
+                getData(ipt);
+            }
+            function getData(id) {
+                // js
+                // 创建一个对象
+                // 用来js控制进行http请求
+                // xml json
+                var xhr = new XMLHttpRequest();
+                xhr.open("get", "/data?id=" + id);
+                // tcp 三握手
+                // readyState 0  1 2  3  4
+                // 0: 请求未初始化
+                // 1: 服务器连接已建立
+                // 2: 请求已接收
+                // 3: 请求处理中
+                // 4: 请求已完成，且响应已就绪
+                // status
+                // 1xx 2xx 3xxx 4xx 5xx
+                xhr.onreadystatechange = function() {
+                    //console.log(xhr.readyState);
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(xhr.responseText);
+                        var obj = JSON.parse(xhr.responseText); // 把json 格式的字符串 变成 JSON
+                        console.log(obj);
+                        // innerHTML 浏览器 解析内容
+                        document.getElementById("id").innerHTML = "id===> " + obj.Id;
+                        document.getElementById("name").innerHTML = "name==> " + obj.Name;
+                    }
+                };
+                xhr.send(null); //发送http //nulll--body 里不携带数据 header-body
+            }
+            // js  -- 不同浏览器的使用方式不同
+            // jquery  屏蔽了不同浏览器的差异 使用方式一致
+        </script>
+    </body>
+</html>

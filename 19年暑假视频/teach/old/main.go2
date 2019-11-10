@@ -1,0 +1,49 @@
+package main
+
+import (
+	"fmt"
+)
+
+//Point 一个点
+type Point struct {
+	X, Y float64
+}
+
+//Format 格式化输出
+func (p Point) Format() {
+	fmt.Println("x:", p.X, "y:", p.Y)
+}
+
+//Print 打印
+func (p *Point) Print() {
+	fmt.Println("x:", p.X, "y:", p.Y)
+}
+
+//Circle 一个圆
+type Circle struct {
+	Point
+	Radius float64 //半径
+}
+
+// overwrite
+//Print 打印
+func (c *Circle) Print() {
+	fmt.Println("x:", c.X, "y:", c.Y, "r:", c.Radius)
+}
+func main() {
+	var c = Circle{
+		Point{1, 2},
+		10,
+	}
+	// 调用 Point的方法
+	c.Format() //x: 1 y: 2
+	// Circle的Print 方法
+	// 覆盖
+	// Point的Print方法
+	c.Print()
+	// 调用Point的Print方法
+	c.Point.Print()
+	Circle{}.Format() //x: 0 y: 0
+	//不能在一个不能寻址的对象上调用指针接收者的方法
+	//Circle{}.Print()//cannot call pointer method on Circle literal
+}

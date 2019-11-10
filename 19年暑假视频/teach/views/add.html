@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="/static/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+        <title>添加</title>
+    </head>
+    <body>
+        标题：<input type="text" id="title" /><br /><br />
+        作者：<input type="text" id="author" /><br /><br />
+        点击数：<input type="number" id="hits" /><br /><br />
+        内容：<textarea id="content" style="width: 600px" cols="30" rows="10"></textarea><br /><br />
+        <button onclick="add()">添加</button> <a href="/list">返回列表</a>
+        <script src="/static/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/umeditor/umeditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/umeditor/umeditor.min.js"></script>
+        <script type="text/javascript" src="/static/umeditor/lang/zh-cn/zh-cn.js"></script>
+        <script>
+            var um = UM.getEditor("content");
+            function add() {
+                console.log("click");
+                var title = $("#title").val();
+                var author = $("#author").val();
+                var hits = $("#hits").val();
+                var content = um.getContent();
+
+                // $.post(
+                //     "/api/article/add",
+                //     {
+                //         title: title,
+                //         author: author,
+                //         hits: hits,
+                //         content: content
+                //     },
+                //     function(resp) {
+                //         if (resp.code == 200) {
+                //             //    location.reload();
+                //         } else {
+                //             alert(resp.msg);
+                //             console.log(resp.data);
+                //         }
+                //     },
+                //     "json"
+                // );
+                // JSON.parse(); json格式的字符串 变成 json 对象
+                // JSON.stringify();  把对象变成 json格式的字符串
+                $.ajax({
+                    url: "/api/article/add",
+                    type: "post",
+                    data: JSON.stringify({ title: title, author: author, hits: Number(hits), content: content }),
+                    contentType: "application/json", //发送给服务端的数据类型
+                    dataType: "json", //服务端给我们的数据类型
+                    complete: function(resp) {
+                        //
+                        console.log(resp);
+                    }
+                });
+            }
+            // Content-Type
+            // contentType
+            // font-size
+            // fontSize
+        </script>
+    </body>
+</html>

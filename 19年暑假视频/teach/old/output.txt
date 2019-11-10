@@ -1,0 +1,67 @@
+package main
+
+import (
+	"io"
+	"os"
+)
+
+func main() {
+	// file, err := os.Open("main.go")
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// buf := make([]byte, 1000)
+	// ln, err := file.Read(buf)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// log.Println(string(buf[0:ln]))
+	// os.Mkdir(`dir`, 0777) //0777
+
+	//0777
+	// 7 7 7
+	// 111 111 111
+	// r w x r w x r w x
+	// 7 拥有者  我们一班  其他班
+
+	// os.MkdirAll("a/b/c/d/e/f", 0666)
+	// os.Rename(`dir`, `dir1`)
+	// / ./ ../
+	//
+	// log.Println(os.RemoveAll(`a`))
+
+	// f, _ := os.Create("1.txt")
+	//f.Read()//读取数据
+	//f.Write() //写数据
+	//f.Close();
+	//f.Sync()//同步数据
+	// f.WriteString
+	// f.Write([]byte("hello file"))
+
+	// fout, _ := os.Create(`output.txt`)
+	// fin, _ := os.OpenFile(`main.go`, os.O_RDWR, 0666)
+	// // input output
+	// io.Copy(fout, fin)
+	// // fout.Close()
+	// // fin.Close()
+
+	// dir, _ := os.Open(`util`)
+	// dirs, _ := dir.Readdir(-1)
+	// for idx := range dirs {
+	// 	fmt.Println(dirs[idx].Name())
+	// }
+	fin, _ := os.Open(`main.go`)
+	fout, _ := os.Create(`output.txt`)
+	//准备容器
+	buf := make([]byte, 128) //128B
+	for {
+		n, err := fin.Read(buf)
+		if n == 0 || err == io.EOF {
+			break
+		}
+		fout.Write(buf[:n])
+	}
+	fin.Close()
+	fout.Close()
+
+}

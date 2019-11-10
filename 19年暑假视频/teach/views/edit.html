@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="/static/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet" />
+        <title>修改</title>
+    </head>
+    <body>
+        <input type="hidden" id="id">
+        标题：<input type="text" id="title" /><br /><br />
+        作者：<input type="text" id="author" /><br /><br />
+        点击数：<input type="number" id="hits" /><br /><br />
+        内容：<textarea id="content" style="width: 600px" cols="30" rows="10"></textarea><br /><br />
+        <button onclick="edit()">修改</button> <a href="/list">返回列表</a>
+        <script src="/static/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/umeditor/umeditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/static/umeditor/umeditor.min.js"></script>
+        <script type="text/javascript" src="/static/umeditor/lang/zh-cn/zh-cn.js"></script>
+        <script>
+            var um = UM.getEditor("content");
+            function edit() {
+                console.log("click");
+                var title = $("#title").val();
+                var author = $("#author").val();
+                var hits = $("#hits").val();
+                var content = um.getContent();
+                var id=$("#id").val();
+                $.ajax({
+                    url: "/api/article/edit",
+                    type: "post",
+                    data: JSON.stringify({ title: title, author: author, hits: Number(hits), content: content ,id:Number(id)}),
+                    contentType: "application/json", //发送给服务端的数据类型
+                    dataType: "json", //服务端给我们的数据类型
+                    complete: function(resp) {
+                        //
+                        console.log(resp);
+                    }
+                });
+            }
+            // Content-Type
+            // contentType
+            // font-size
+            // fontSize
+
+            function init() {
+                // alert("click")
+                var id = location.search.replace("?id=", "");
+                $.get("/api/index/data", { id: id }, function(resp) {
+                    console.log(resp);
+                    $("#title").val(resp.title);
+                    $("#author").val(resp.author);
+                    // $("#content").html(resp.content);
+                    um.setContent(resp.content);
+                    $("#hits").val(resp.hits);
+                    $("#id").val(resp.id);
+                });
+            }
+            init();
+        </script>
+    </body>
+</html>

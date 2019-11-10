@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- html5 -->
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>title</title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        <style>
+            /*  */
+            #dv {
+                width: 200px;
+                height: 200px;
+            }
+            .cls {
+                background-color: #f5f5f5;
+                color: #da2323;
+                text-align: center;
+                /* line-height: 200px; */
+                border: 2px solid red;
+                outline: 2px solid blue;
+                padding: 4px;
+                /* border-radius: 50%; */
+                /* outline-radius: 50%; */
+                /* margin-top: 100px; */
+                /* margin: 0 auto 0 auto; */
+                margin: 10px auto;
+                /* em rem */
+                /* 16  */
+                cursor: pointer;
+            }
+            /* #dv::after{
+                content: 'sb';
+            }
+            #dv::before{
+                content: '112';
+            } */
+            #dv:hover {
+                border: 2px solid blue;
+                outline: 2px solid red;
+            }
+            /* > 
+            + */
+        </style>
+    </head>
+    <body>
+        <input type="text" value="123" id="ipt" />
+        <div id="dv" style="width:200px" class="cls">div</div>
+        <button id="btn" style="color: #f5f5f5">按钮</button>
+        <!-- <form action="/ddd" method="get">
+    <input type="text">
+    <input type="button" value="">
+    <input type="checkbox" name="" id="">
+    <input type="radio" name="1" id="">
+    <input type="radio" name="1" id="">
+    <input type="file" name="" id="">
+    <input type="submit" value="">
+   </form> -->
+
+        <!-- <select name="" id="">
+       <option value="dd">dd</option>
+        <option value="3">2</option>
+   </select> -->
+        <!-- <ul>
+        <li>dd</li>
+        <li>32</li>
+    </ul> -->
+        <!-- <ol>
+        <li>222</li>
+        <li>333</li>
+    </ol> -->
+        <!-- <div>
+        dd
+    </div>
+    <p>p</p>
+      <p>p</p>
+    <span>sp1</span>
+    <span>sp2</span> -->
+        <!-- 2
+    <b>2</b>
+    <strong>2</strong>
+    <i>2</i>
+    <del>2</del>
+    <sub>2</sub>
+    2
+    <sup>2</sup> -->
+        <!-- <img src="" alt="time"> -->
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>1</th>
+                    <th>2</th>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </tfoot>
+        </table> -->
+
+        <!-- <script src=""></script> -->
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+            var dv = document.getElementById("dv");
+            var ipt = document.querySelector("#ipt");
+            console.log(dv);
+            // console.clear()
+            console.info("info");
+            console.error("error");
+            console.debug("debug");
+            console.warn("warn");
+            console.dir(dv);
+            dv.style.marginTop = "20px";
+            dv.style.color = "#000";
+            dv.onclick = function() {
+                // alert("alert-----");
+                //   console.log(ipt.value)
+
+                //         var img = document.createElement("img")
+                // img.setAttribute("src","https://pics7.baidu.com/feed/d0c8a786c9177f3ede910e1c7d2b14c29e3d5667.jpeg?token=eab8dd4f78fe689474d4699293329af6&s=09843C72A7E76B1B5C77E0DF0300C0E2")
+                // img.setAttribute("alt","attt")
+                // img.onclick
+                var html = [];
+                html.push("<ul>");
+                for (var i = 0; i < 10; i++) {
+                    html.push("<li>" + i + "</li>");
+                }
+                html.push("</ul>");
+                console.log(html.join(""));
+                dv.innerHTML = html.join("");
+                // document.body.appendChild(img)
+            };
+            // setTimeout(function(){
+            //     dv.click();
+            // }, 2000);
+            // dv.onmou
+            //document.getElementById()
+            //document.querySelector()
+            //document.querySelectorAll()
+            //$("选择器")
+            var $btn=$("#btn");
+            var $ipt=$("#ipt");
+            console.dir($ipt.val())
+            console.dir($ipt.val('zxys'))
+            $btn.click(function(){
+                console.log('click')
+            })
+            $btn[0].onclick=function(){
+                console.log('onclick')
+            }
+            // $btn[0].click();
+            // $btn.click();
+
+            console.log($btn.css('color','red'))
+            // $btn.css.style('color','green')
+            // console.log($btn.css)
+            console.log($btn.attr('diy','diy').css('background-color','blue')[0].setAttribute('native','native'))
+            var arr=[1,2,3,4,5,6,7];
+            // $.each(arr,function(k,v){
+            //     console.log(k,v)
+            // })
+            // url http
+            // 传递的数据 
+            // 回调函数
+            // json
+            $.post('http://baidu.com',{k:"v"},function(resp){},'json')
+            $.get('url',{k:"v"},function(resp){},'json')
+            $.ajax()
+            $btn.htnl()
+        </script>
+    </body>
+</html>

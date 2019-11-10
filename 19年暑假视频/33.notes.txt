@@ -1,0 +1,254 @@
+name = "file"
+
+router
+
+api.POST("/upload",Upload)
+
+func Upload(ctx echo.Context)error{
+	f,h,err:=ctx.FormFile("file")//获取文件 rtn==>文件 文件信息 错误
+	// err
+	filename=""//随机字符串
+	dst,_:==os.Create("filename",0666)
+	//f==h.Open()
+	io.Copy(dst,f)
+	f.Close()
+	dst.Close()
+	return ctx.JSON(utils.Succ("提示","数据"))相对路径 name ./ ../  main.go 路径  / 绝对路径
+}
+
+view
+
+$.get("路径","数据","回调函数-当这个http数据返回回来的时候调用这个方法并把数据放到第一个参数里面 resp","返回的数据类型")
+localStroage.getItem("")//关闭浏览器还在
+seessionStroage.getItem("")//关闭浏览器就不在了
+
+///api/xxx/drop/i?token=zzzzzzz
+$.get("/api/xxx/drop/path参数",{token:"token/localStroage.getItem(""),seessionStroage.getItem()"},function(resp){
+	if(resp.code===200){
+	}else{
+	},"json")
+
+router 
+//api.GET("/xxx/drop/:id")
+
+control
+func xxxDrop(ctx echo.Context)error{
+	ctx.Param("id")//path 参数
+	id,err:=strconv.ParseInt(ctx.Param("id"),10,64)
+	err:=model.xxxDrop(id)
+	if err.//
+	
+	err.Error()//错误信息的string
+}
+model
+
+
+func xxxDrop(id int64)error{
+	tx,_:=Db.Begin()
+	tx.Exec("delete from xxx where id =?",id)
+	tx.ExecNamed("delete from xxx where id =:id",mod)// mod:=xx{Id:ic} type xx struct{ Id int64}
+	reult,err:=tx.ExecNamed("delete from xxx where id =:id",mod)// mod=map[string]int64{"Id":id}
+	if err!=nil{
+		tx.Rollback()
+		return err
+	}
+	//可选 检测数据库影响的行数是否正常 
+	rows,_:=reult.RowsAffected()
+	if rows<1{
+		tx.Rollback()
+		return errors.New("xxx")
+ 	}
+	tx.Commit()
+	return nil
+}
+
+view
+
+$.ajax({
+	url:"地址",
+	type:"类型 post/get",
+	contentType:"请求数据的类型/发送到 ‘地址’ 的数据类型",
+	dataType:"返回的数据的类型",
+	data:"数据 {formData} string<==>contentType  " application/json jsonString application/xml xmlString payload负载
+	success:function(resp){
+		
+	}
+	
+})
+$.ajax({
+	url:"/adm/xxx/add",
+	type:"post",
+	contentType:"application/json",
+	dataType:"json",
+	data:JSON.stringify({})
+	success:function(resp){
+		if //
+	}
+	
+})
+
+router 
+adm.POST("/xxx/add",xxxAdd)
+
+control
+ctx context
+ctn 容器
+func xxxAdd(ctx echo.Context)error{ //interface{} 引用类型 指针
+	ipt:=model.xxx{}
+	err:=ctx.Bind(&ipt)
+	//
+	ipt.Nmae Num phone 格式是否正确 num 是否重复
+	
+	model.xxxAdd(&ipt)
+}
+
+model 
+
+func xxxAdd(mod *XXX)error{
+	tx.ExecNamed("insert into xxx (z,x,y) values(:z,:x,:y)",mod)
+	tx.Exec("insert into xxx(z,x,y)values(?,?,？)",mod.Z,mod.X,mod.Y)
+}
+
+
+view 
+$.get("/api/xxx/page",{pi:xx,ps:xx},function(resp){
+	// 手动拼接数据 
+	var html=[];
+	for (itme ){
+		html.push('<li>'+item.xxx+'</li>')
+	}
+	//js 
+	document.getElementById("ctn").innnerHTML=html.join("")
+	$("#ctn").hmlt(html.join(""));
+	$("#ctn")[0].innnerHTML=html.join("")
+	// artTemplate 模板渲染
+	准备模板
+	tpl template
+	<script type="text/template" id="tpl"> 
+	{{each items item index}}
+		<li>{{item.xxx}}</li>
+	{{/each}}
+	</script>
+	var html=template("tpl",resp.data)
+	// layui 数据表格 
+	var table =layui.table;
+	table.render({
+	})//
+},"json")
+
+
+router 
+api.GET("/xxx/page",xxxPage)
+
+control
+func xxxPage(ctx echo.Context)error{
+	ipt:=Page{}
+	ctx.Bind(&ipt)
+	//err
+	ipt.Pi ipt.Ps 
+	count :=model.xxCount()
+	// 
+	model.xxxPage(pi,ps)
+}
+
+type Page struct{
+	Pi int
+	Ps int
+}
+
+
+model
+
+func xxxCount()int{
+	count:=0
+	db.Get(&count,"select count(id) as count from xxxx")
+	return count
+}
+
+func xxxPage(pi,ps)([]xxx,error){
+	mods:=make([]xxx,0,ps)
+	err:=db.Select(&mods,"select * from xxx order by id desc limit ?,?",(pi-1)*ps,ps)
+	return mods,err
+}
+
+
+
+view 
+
+type user{
+	num 
+	pass
+	role "角色" role==1 普通用户 role == 1024 管理
+}
+
+// formData
+$.post("/login",{num:xx,pass:xxx},function(resp){
+	if (resp.code===200){// == 值 === 类型&值相同
+		location.href=resp.msg
+	}else{
+		console.log(resp.msg)
+	}
+},"json")
+
+
+router app.POST("/login",login)
+
+control
+
+func Login(ctx)error{
+	// ctx.FormValue("num")
+	ipt:=&struct{
+		Num string
+		Pass string
+	}{}
+	ctx.Bind(ipt)
+	ipt.Num//查询数据
+	url:="/user/index.hmlt"
+	if mod.Role==1024{
+		url="/admin/index"
+	}
+	// 生成一个凭证 不唯一 jwt json web token 简单好理解
+	
+	md5(data + key) 摘要
+	data.摘要
+	// 
+	return ctx.JSON(utils.Succ(url,token))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

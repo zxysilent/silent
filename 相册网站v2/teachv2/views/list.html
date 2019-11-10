@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>V2 列表</title>
+    <style>
+        img{
+            max-width: 300px;
+        }
+        .drop{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div>
+        <ul id="ctn">
+            <li><a href=""><img src="" alt=""></a></li>
+        </ul>
+         <a href="/">返回主页</a>
+    </div>
+    <script src="/static/js/jquery.min.js"></script>
+    <script>
+    function init(){
+        $.get("/api/list",{},function(resp){
+            console.log(resp)
+            var html=[];
+            for(var i=0;i<resp.length;i++){
+                html.push(' <li><a href="/detail?id='+resp[i].Id+'"><img src="'+resp[i].Path+'" alt="未发现"></a>备注：'+resp[i].Note+'<button class="drop" onclick="drop('+resp[i].Id+')">删除</button></li>')
+            }
+            document.getElementById("ctn").innerHTML=html.join('');
+        },'json')
+    }
+    init();
+    function drop(id){
+        $.get("/api/drop",{id:id},function(resp){
+            if (resp=="删除成功"){
+                init()
+            }else{
+                alert("删除失败")
+            }
+        })
+    }
+    </script>
+</body>
+</html>
